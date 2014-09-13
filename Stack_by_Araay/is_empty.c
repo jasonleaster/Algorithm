@@ -1,7 +1,7 @@
 /*****************************************************
 Code writer	:	EOF
 Code date	:	2014.09.13
-code file	:	stack.h
+code file	:	is_empty.c
 e-mail		:	jasonleaster@gmail.com
 
 code purpose	:

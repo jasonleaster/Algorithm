@@ -1,11 +1,11 @@
 /*****************************************************
 Code writer	:	EOF
 Code date	:	2014.09.13
-code file	:	stack.h
+code file	:	stack_test.c
 e-mail		:	jasonleaster@gmail.com
 
 code purpose	:
-	This file("stack.c") a source file  which
+	This file("stack_test.c") a source file  which
 contain a main-function which is used for testing
 my stack.
 
