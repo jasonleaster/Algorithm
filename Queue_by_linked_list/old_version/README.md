@@ -7,7 +7,7 @@ knowledge of ADT-queue.
 	I release the other implementation of ADT-queue
 which work correctly!
 
-You could got that correct version here:
+You can get that correct version here:
 
 https://github.com/jasonleaster/Algorithm/tree/master/Queue_by_linked_list/newest_version
 
