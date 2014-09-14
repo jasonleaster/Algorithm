@@ -52,6 +52,12 @@ int selection_sort(struct element* element)
 
 void print_element(struct element* const element)
 {
+	if(!element)
+	{
+		printf("");
+		return ;
+	}
+
 	int tmp = 0;
 
 	for(tmp = 0;tmp < element->size; tmp++)
