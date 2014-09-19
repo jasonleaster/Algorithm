@@ -1,3 +1,13 @@
+/***************************************************
+code writer	:	EOF
+code file	:	heap_sort.c
+code date	:	2014.09.19
+e-mail		:	jasonleaster@gmail.com
+
+description	:
+	This is the kernel of the heap-sort.
+
+*****************************************************/
 #include "priority_queue.h"
 
 #define DEBUG
