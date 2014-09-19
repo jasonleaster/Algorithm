@@ -4,6 +4,8 @@ code date	:	2014.09.14
 code file	:	insertion_sort.c
 e-mail		:	jasonleaster@gmail.com
 
+update:	2014.09.20
+
 ******************************************************/
 #include <stdio.h>
 
@@ -27,24 +29,18 @@ int insertion_sort(struct element* element)
 	int tmp_1       = 0;
 	int tmp_2       = 0;
 	int swap	= 0;
+	int sentinel	= 0;
 
-	for(tmp_1 = 0;tmp_1 < element->size; tmp_1++)
+	for(tmp_1 = 1;tmp_1 < element->size; tmp_1++)
 	{
-		for(tmp_2 = tmp_1;tmp_2-1 > 0 && tmp_2 > 0; tmp_2--)
-		{
-			if(element->array[tmp_2] < element->array[tmp_2-1])
-			{
-				
-				swap		      = element->array[tmp_2];
-				element->array[tmp_2] = element->array[tmp_2-1];
-				element->array[tmp_2-1] = swap;
-			}
-			else
-			{
-				break;
-			}
-		}	
+		sentinel = element->array[tmp_1];
 
+		for(tmp_2 = tmp_1;element->array[tmp_2-1] > sentinel && tmp_2 > 0; tmp_2--)
+		{
+			element->array[tmp_2] = element->array[tmp_2-1];
+		}
+
+		element->array[tmp_2] = sentinel;
 	}
 
 	return 0;
