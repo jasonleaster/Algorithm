@@ -69,8 +69,23 @@ void quick_sort(int* array,int left,int right)
 		**	Restore pivot
 		*/
 		swap(&array[smaller_region_index],&array[right]);
-		quick_sort(array,left,smaller_region_index-1);	
-		quick_sort(array,bigger_region_index+1,right);	
+		if(left == smaller_region_index)
+		{
+			quick_sort(array,left,smaller_region_index);	
+		}
+		else
+		{
+			quick_sort(array,left,smaller_region_index-1);	
+		}
+
+		if(right == bigger_region_index)
+		{
+			quick_sort(array,bigger_region_index,right);
+		}
+		else
+		{
+			quick_sort(array,bigger_region_index+1,right);
+		}
 	}
 	else
 	{
