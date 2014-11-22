@@ -1,4 +1,4 @@
-/***************************************************
+/**************************************************************************
 code writer	:	EOF
 code date	:	2014.09.21
 code file	:	min_max.c
@@ -9,14 +9,23 @@ code description:
 	A faster way to find min and max value in 
 data array.
 
-****************************************************/
+#BUG1:
+	for(tmp = 0,*min = array[0],array[1];tmp < size;tmp += 2)
+
+fix it up by:	licoderli 
+
+	for(tmp = 0,*min = array[0],*max = array[1];tmp < size;tmp += 2)
+
+Thanks licoderli.
+
+**************************************************************************/
 #include <stdio.h>
 
 void max_min(int* array,int size,int* min,int* max)
 {
 	int tmp = 0;
 
-	for(tmp = 0,*min = array[0],array[1];tmp < size;tmp += 2)
+	for(tmp = 0,*min = array[0],*max = array[1];tmp < size;tmp += 2)
 	{
 		if(array[tmp] < array[tmp+1])
 		{
