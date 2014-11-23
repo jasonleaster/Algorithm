@@ -1,0 +1,99 @@
+v3 dequeue
+	know	dist	path
+	NFond	INF	0
+	NFond	1	v3
+	NFond	INF	0
+	Found	0	0
+	NFond	INF	0
+	NFond	INF	0
+	NFond	1	v3
+	NFond	INF	0
+
+
+
+v6 dequeue
+	know	dist	path
+	NFond	INF	0
+	NFond	1	v3
+	NFond	INF	0
+	Found	0	0
+	NFond	INF	0
+	NFond	INF	0
+	Found	1	v3
+	NFond	INF	0
+
+
+
+v1 dequeue
+	know	dist	path
+	NFond	INF	0
+	Found	1	v3
+	NFond	2	v1
+	Found	0	0
+	NFond	2	v1
+	NFond	INF	0
+	Found	1	v3
+	NFond	INF	0
+
+
+
+v4 dequeue
+	know	dist	path
+	NFond	INF	0
+	Found	1	v3
+	NFond	2	v1
+	Found	0	0
+	Found	2	v1
+	NFond	3	v4
+	Found	1	v3
+	NFond	3	v4
+
+
+
+v2 dequeue
+	know	dist	path
+	NFond	INF	0
+	Found	1	v3
+	Found	2	v1
+	Found	0	0
+	Found	2	v1
+	NFond	3	v4
+	Found	1	v3
+	NFond	3	v4
+
+
+
+v7 dequeue
+	know	dist	path
+	NFond	INF	0
+	Found	1	v3
+	Found	2	v1
+	Found	0	0
+	Found	2	v1
+	NFond	3	v4
+	Found	1	v3
+	Found	3	v4
+
+
+
+v5 dequeue
+	know	dist	path
+	NFond	INF	0
+	Found	1	v3
+	Found	2	v1
+	Found	0	0
+	Found	2	v1
+	Found	3	v4
+	Found	1	v3
+	Found	3	v4
+
+
+
+	0
+	1	4	2
+	2	4	5
+	3	6	1
+	4	3	6	7	5
+	5	7
+	6
+	7	6

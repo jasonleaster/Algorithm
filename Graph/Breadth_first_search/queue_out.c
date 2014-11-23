@@ -9,9 +9,7 @@ happy, if my code will help you to know what is queue.
 If something wrong with my code, please touch me by e-mail.
 
 ************************************************************************/
-#include "queue.h"
-#include <stdlib.h>
-#include <stdio.h>
+#include "BFS.h"
 
 int queue_out(struct node** pp_queue_header,struct node** pp_queue_tail)
 {

@@ -6,11 +6,11 @@ code purpose:
 		Just a implementation of function queue_enter. I would be
 happy, if my code will help you to know what is queue.
 ****************************************************************/
-#include <stdlib.h>
-#include "queue.h"
-#include <stdio.h>
+#include "BFS.h"
 
-int queue_enter(struct node** pp_queue_header ,struct node** pp_queue_tail,int number)
+int queue_enter(struct node** pp_queue_header ,
+		struct node** pp_queue_tail,
+		int number)
 {
 	struct node* p_new_node = NULL;
 	struct node* p_temp_node = NULL;

@@ -39,9 +39,12 @@ int main()
 
 	queue_print(p_queue_tail);
 
-	printf("queue out:%d\n",queue_out(&p_queue_header));
+	for(temp = 0;temp < ARRAY_SIZE;temp++)
+	{
+		printf("queue out:%d\n",queue_out(&p_queue_header,&p_queue_tail));
+	}
 
-	printf("queue out:%d\n",queue_out(&p_queue_header));
+	//printf("queue out:%d\n",queue_out(&p_queue_header));
 	
 	queue_print(p_queue_tail);
 

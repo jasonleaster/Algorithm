@@ -9,6 +9,11 @@ code description:
 We abstract the data structure -- Graph here. And we also
 declare some useful API to construct out naive graph :)
 
+	What we should know is that this graph is a undirected
+graph but not digraph ! But it's easy for us to change it 
+to be a digraph. So I just remind somebody is reading this
+code and say "Don'a panic".
+
 ************************************************************/
 #ifndef _GRAPH_H_
 #define _GRAPH_H_
