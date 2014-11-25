@@ -6,7 +6,7 @@ e-mail		: jasonleaster@gmail.com
 
 code description:
 	
-	This test program is used for testing BFS.
+	This test program is used for testing toplogistic sort.
 
 *****************************************************************/
 #include "tls.h"
@@ -51,12 +51,16 @@ int main()
 		add_edge(p_graph,from_v,to_v);
 	}
 
-		
 	struct table* p_table =  init_table(vertex,3);
 
-	unweighted_path(p_table,p_graph);
-
+	printf("Here is the relationship between different vertex\n");
 	print_graph(p_graph);
+
+	printf("Aha,the result of toplogistic sort:\n");
+	//----------------------
+	topsort(p_graph);
+	//---------------------
+
 	release_table(p_table);
 	release_graph(p_graph);
 	fclose(fp);

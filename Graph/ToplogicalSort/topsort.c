@@ -1,3 +1,14 @@
+/****************************************************************
+code file	: topsort.c
+code writer	: EOF
+code date	: 2014.11.22
+e-mail		: jasonleaster@gmail.com
+
+code description:
+	A implementation of topsort() which is used for 
+toplogistic sort.
+
+***************************************************************/
 #include "tls.h"
 
 void topsort(struct graph* p_graph)
@@ -34,7 +45,7 @@ void topsort(struct graph* p_graph)
 	{
 		vertex_index = queue_out(&p_queue_header,&p_queue_tail);
 
-		/**********/
+		printf("\t%d",vertex_index);
 
 		p_vertex = (struct vertex*)(&p_graph->adjacent[vertex_index]);
 		p_vertex = p_vertex->next;
@@ -49,5 +60,6 @@ void topsort(struct graph* p_graph)
 		}
 	}
 
+	printf("\n");
 	queue_destory(p_queue_tail);
 }

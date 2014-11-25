@@ -46,7 +46,7 @@ int add_edge(struct graph* p_graph,char from_v,char to_v)
 	/*
 	**	Caculate the indegree of each vertex
 	*/
-	(p_graph->adjacent[to].indegree)++;
+	(p_graph->adjacent[to_v].indegree)++;
 
 	return SUCCESS;
 }

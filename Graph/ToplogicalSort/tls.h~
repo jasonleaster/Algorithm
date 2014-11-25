@@ -22,6 +22,9 @@ code description:
 	#define SUCCESS  0
 	#define FAILED  -1
 
+//	#define QUEUE_SIZE 10
+//	#define ARRAY_SIZE 20
+
 	#define EMPTY_QUEUE   -1
 	#define UNEMPTY_QUEUE  0 
 
