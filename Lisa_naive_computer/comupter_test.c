@@ -9,6 +9,16 @@ code purpose :
 I created. If there is something wrong with my code, please
 touche me by e-mail.
 
+#ATTENTION#	
+	You must input with '(' and ')' for each operator,
+otherwise you will be puzzle about the result of output.
+
+Usage:
+	(1+2) would output 3
+	(1+((2*3)+1))  == 8
+
+If there is something wrong with my code, please touch me by e-mail.
+
 ******************************************************************/
 #include "stack.h"
 

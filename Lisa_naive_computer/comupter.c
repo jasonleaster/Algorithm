@@ -3,11 +3,24 @@ Code writer : EOF
 Code file   : computer.c
 Code date   : 2014.11.26
 Email	    : jasonleaster@gmail.com
+Version	    : 0.0
 
 Code description:
-	
-	Here is a implementation of a naive computer
-It based on two stack scheme which was found by Dijkstra.
+
+code purpose : 
+	This code is my implementation for function creat_stack.
+functin creat_stack would creat a the first node of the stack and 
+just only the first node. You must know what is stack...
+
+#ATTENTION#	
+	You must input with '(' and ')' for each operator,
+otherwise you will be puzzle about the result of output.
+
+Usage:
+	(1+2) would output 3
+	(1+((2*3)+1))  == 8
+
+If there is something wrong with my code, please touch me by e-mail.
 
 *********************************************************/
 #include "stack.h"
