@@ -27,7 +27,6 @@ If there is something wrong with my code, please touch me by e-mail.
 
 int computer(void)
 {
-	char string[ARRAYSIZE] = {0};
 
 	/*
 	**	According to Dijsktra's Two Stack scheme,
@@ -48,27 +47,18 @@ int computer(void)
 	int  opr_two   = 0;
 	char operator  = 0;
 
-	/*
-	** 	Evil --> --> scanf("%s",&string);
-	**
-	** scanf family is not safe for string which is inputed.
-	** I decide to give it up and use system call read().
-	*/
-
-	if(read(STDIN_FILENO,string,ARRAYSIZE) < 0)
-	{
-		printf("system call read() error"
-		       " in function %s()\n",__FUNCTION__);
-	}
+	struct string* p_string = new_string();
 	
-	for(temp = 0;string[temp] != '\n';temp++)
+	p_string = p_string->read(p_string);
+
+	for(temp = 0;p_string->str[temp] != '\n';temp++)
 	{
-		if(string[temp] == '(')
+		if(p_string->str[temp] == '(')
 		{
 			continue;
 		}
 
-		if(string[temp] == ')')
+		if(p_string->str[temp] == ')')
 		{
 			opr_one  = pop_stack(p_stack_operand);
 			opr_two  = pop_stack(p_stack_operand);
@@ -109,21 +99,25 @@ int computer(void)
 					goto out;
 					result = -1;
 					printf("ERROR!undefined "
-					       "operator %c\n",operator);
+					"operator %c\n",operator);
 	
 			}
 		}
 
-		if(string[temp] >= '0' && string[temp] <= '9')
+		if(p_string->str[temp] >= '0' && 
+		   p_string->str[temp] <= '9')
 		{
-			push_stack(&p_stack_operand,string[temp] - '0');
+			push_stack(&p_stack_operand,
+				    p_string->str[temp] - '0');
 			continue;
 		}
 
-		if(string[temp] == '+' || string[temp] == '-'||
-		   string[temp] == '*' || string[temp] == '/')
+		if(p_string->str[temp] == '+' || 
+		   p_string->str[temp] == '-' ||
+		   p_string->str[temp] == '*' || 
+		   p_string->str[temp] == '/')
 		{
-			push_stack(&p_stack_operator,string[temp]);
+			push_stack(&p_stack_operator,p_string->str[temp]);
 			continue;
 		}
 	}
@@ -136,7 +130,7 @@ int computer(void)
 out:
 	release_stack(p_stack_operand);
 	release_stack(p_stack_operator);
-
+	p_string->release(p_string);
 	return result;
 }
 

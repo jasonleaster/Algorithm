@@ -25,11 +25,11 @@ int insertion_sort(struct element* element)
 		printf("element is NULL!\n");
 		return 0;
 	}
-
-	int tmp_1       = 0;
-	int tmp_2       = 0;
-	int swap	= 0;
-	int sentinel	= 0;
+ 
+	int tmp_1    = 0;
+	int tmp_2    = 0;
+	int swap     = 0;
+	int sentinel = 0;
 
 	for(tmp_1 = 1;tmp_1 < element->size; tmp_1++)
 	{

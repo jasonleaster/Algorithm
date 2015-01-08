@@ -1,6 +1,6 @@
-SOURCE_FILE:=	is_empty.c push_stack.c creat_stack.c pop_stack.c stack_test.c comupter.c release_stack.c
+SOURCE_FILE = is_empty.c push_stack.c creat_stack.c pop_stack.c comupter.c release_stack.c comupter_test.c new_string.c del_string.c str_read.c
 
-OBJECT_FILE:=	is_empty.o push_stack.o creat_stack.o pop_stack.o stack_test.o comupter.o release_stack.o
+OBJECT_FILE = is_empty.o push_stack.o creat_stack.o pop_stack.o comupter.o release_stack.o comupter_test.o new_string.o del_string.o str_read.o
 
 a.out: $(OBJECT_FILE)
 
