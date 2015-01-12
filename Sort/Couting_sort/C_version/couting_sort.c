@@ -14,36 +14,70 @@ me by e-mail.
 #include <stdio.h>
 #include <stdlib.h>
 
-int counting_sort(int *num,int size)
+int counting_sort(int *num,int array_size)
 {
     if(!num)
     {
         return -1;
     }
 
-    int *p_buffer = (int*)malloc(sizeof(int)*size);
+    int *p_tmp = (int*)malloc(sizeof(int)*array_size);
+
+    if(!p_tmp)
+    {
+         printf("malloc failed %d\n",__LINE__);
+         return 0;
+    }
+
+    int i = 0;
+    int max_value = 0;
+    for(i = 0; i < array_size; i++)
+    {
+        max_value = max_value > num[i] ?
+                    max_value : num[i];
+
+        p_tmp[i] = num[i];
+    }
+
+    int counter_size = max_value + 1;
+
+    int *p_counter = (int*)malloc(sizeof(int)*counter_size);
+
+    if(!p_counter)
+    {
+         printf("malloc failed %d\n",__LINE__);
+         return 0;
+    }
 
     //initialization
-    int i = 0;
-    for(i = 0; i < size; i++)
+    for(i = 0; i < counter_size; i++)
     {
-        p_buffer[i] = 0;
+        p_counter[i] = 0;
     }
 
     //counting
-    for(i = 0; i < size; i++)
+    for(i = 0; i < array_size; i++)
     {
-        p_buffer[num[i]] += 1;
+        p_counter[num[i]] += 1;
+    }
+
+    //caculating
+    for(i = 1; i < counter_size; i++)
+    {
+        p_counter[i] += p_counter[i-1];
     }
 
     //output from bigger element to smaller element
-    int index = 0;
-    for(index = i = size -1;i >= 0; i--)
+    for(i = array_size -1;i >= 0; i--)
     {
-        num[(size -1) - index] = i;
+        num[p_counter[p_tmp[i]] - 1] = p_tmp[i];
+
+        p_counter[p_tmp[i]] -= 1;
     }
 
-    free(p_buffer);
+    free(p_counter);
+    free(p_tmp);
+
     return 0;
 }
 

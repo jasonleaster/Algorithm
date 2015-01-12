@@ -1,7 +1,7 @@
-"""
+"""**************************************************
 Code writer : EOF
 Code date   : 2015.01.10
-Code file   : heap_func.py
+Code file   : heap_demo.py
 e-mail      : jasonleaster@gmail.com
 
 Code purpose:
@@ -9,7 +9,8 @@ Code purpose:
 is in Python.
         If you find something error with my code, 
 please touch me by e-mail. Thank you.
-"""
+
+*****************************************************"""
 
 import sys
 
@@ -36,6 +37,7 @@ def heap_size(A) :
 def init_input(A) :
     size = len(A)
     A = [size] + A
+
     return A
 
 def max_heapify(A, i) :
@@ -56,10 +58,14 @@ def max_heapify(A, i) :
       A[largest] = tmp       
       max_heapify(A,largest)
 
+    return A
+
 def build_max_heap(A) :
     hs = heap_size(A)
     for i in range(hs/2,0,-1) :
-        max_heapify(A,i)
+      A = max_heapify(A,i)
+
+    return A
 
 def show_heap(A) :
     depth = 0
@@ -70,7 +76,7 @@ def show_heap(A) :
         depth_up_bound += 1
         tmp >>= 1
 
-    for i in range(1,heap_size(A)) :
+    for i in range(1,heap_size(A)+1) :
         if i == (1<<depth) :
            blank = depth_up_bound - depth
            sys.stdout.write('\n' + 2*(blank)*' ')
@@ -78,19 +84,36 @@ def show_heap(A) :
 
         sys.stdout.write(" %s " % A[i])
 
-    print ''
+    print ""
 
+def heap_sort(A) :
+    for i in range(len(A)-1,0,-1) :
+        tmp  = A[1]
+        A[1] = A[i]
+        A[i] = tmp
+        
+        """ heap size minus 1, Attention that we store 
+        the value of the heap size into the A[0] """
+
+        A[0] -= 1
+        max_heapify(A,1)
+
+    return A
+
+#----up this line is implementation of funcs. Below this is testing code---
 
 A = [27,17,3,16,13,10,1,5,7,12,4,8,9,0]
 
-B = [1,4,3,16,9,2,10,14,8,7]
-
 A = init_input(A)
-B = init_input(B)
 
 print "The inputed data A = ", A
-print "The inputed data B = ", B
 
-show_heap(A)
+Sorted_A = build_max_heap(A)
 
+show_heap(Sorted_A)
 
+print "Aha! Attention the node which's value is 1," + \
+      " this node has only one child."
+
+print "After heap sorting"
+print heap_sort(A)
