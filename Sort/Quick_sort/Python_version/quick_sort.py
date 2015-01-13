@@ -1,4 +1,12 @@
 """
+code writer	:	EOF
+code date	:	2015.01.12
+code file	:	quick_sort.c
+e-mail		:	jasonleaster@gmail.com
+
+Code description:
+               Quick Sort is implemented in Python
+
 """
 
 def quick_sort(A, p, r) :
