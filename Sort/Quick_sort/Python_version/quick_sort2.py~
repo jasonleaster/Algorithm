@@ -21,7 +21,6 @@ def quick_sort(A, p, r) :
        quick_sort(A, p, q-1)
        p = q + 1
 #*****************************
-
 # resorting in place 
 def partition(A, p, r) :
     x = A[r]

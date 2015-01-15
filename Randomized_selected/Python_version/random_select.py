@@ -25,7 +25,7 @@ def partition(A, p, r) :
     return i+1
 
 def random_partition(A, p, r) :
-    i = random.randint(p,r+1)
+    i = random.randint(p,r)
     A[r], A[i] = A[i], A[r]
     return partition(A, p, r)
 

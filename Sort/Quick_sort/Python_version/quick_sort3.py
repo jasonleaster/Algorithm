@@ -1,14 +1,16 @@
 """
 code writer	:	EOF
 code date	:	2015.01.15
-code file	:	quick_sort3.c
+code file	:	quick_sort3.py
 e-mail		:	jasonleaster@gmail.com
 
 Code description:
                Quick Sort is implemented in Python
 
+      I just only changed the @quick_sort and the other code is
+the same as the old version which is in file quick_sort.py
 """
-
+#**************************************************
 def quick_sort(A, p, r) :
     while p < r :
        q = partition(A, p, r)
@@ -19,6 +21,7 @@ def quick_sort(A, p, r) :
        else :
           quick_sort(A, q+1, r)
           r = q -1
+#**************************************************
 
 # resorting in place 
 def partition(A, p, r) :
