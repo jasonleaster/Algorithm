@@ -5,8 +5,8 @@ Code file   : bs.py
 e-mail      : jasonleaster@gmail.com
 
 Code description:
-       Here is a implementation for 
-how to do binary search in Python.
+       Here is a implementation for how to do 
+binary search in Python.
 
 '''
 def binary_search(array, element):
