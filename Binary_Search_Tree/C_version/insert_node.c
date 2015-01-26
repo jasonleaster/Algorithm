@@ -1,39 +1,39 @@
-/*********************************************************************
-* Code writer:EOF
-* Code date: 2014.02.20
-* code purpose:
-		this code is my implementation for the function insert_for_delete
-* e-mail: jasonleaster@gmail.com
 
-If something wrong with my code, please touch me by e-mail. Thank you!
-
-*********************************************************************/
 #include "bst.h"
 
-int insert_for_delete(struct node* p_node,struct node* tmp)
+struct node *insert_node(struct node* p_node,
+                         struct node* p_parent, 
+                         int number)
 {
-	if((p_node) == NULL)
-	{
-		return 0;
-	}
-	else
-	{
-		if((p_node)->data < tmp->data)
-		{
-			if(0 == insert_for_delete((p_node)->rightchild,tmp))
-			{
-				(p_node)->rightchild = tmp;
-				tmp->parent = (p_node);
-			}
-		}
-		else if((p_node)->data > tmp->data)
-		{
-			if(0 ==insert_for_delete((p_node)->leftchild,tmp))
-			{
-				(p_node)->leftchild = tmp;
-				tmp->parent = (p_node);
-			}
-		}
-	}
-}
+     if(!p_node)
+     {
 
+	 struct node *p_temp = (struct node*)malloc(sizeof(struct node));
+
+	 if(!p_temp)
+	 {
+	     printf("malloc failed!\n");
+	     return NULL;
+	 }
+
+	 p_temp->data = number;
+	 p_temp->leftchild = p_temp->rightchild = NULL;
+         p_temp->parent = p_parent;
+
+         return p_temp;
+     }
+     else if (p_node->data > number)
+     {
+         p_node->leftchild = insert_node(p_node->leftchild,
+                                         p_node,
+                                         number);
+     }
+     else if (p_node->data < number)
+     {
+         p_node->rightchild = insert_node(p_node->rightchild,
+                                          p_node,
+                                          number);
+     }
+
+     return p_node;
+}

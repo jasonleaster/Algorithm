@@ -27,7 +27,9 @@ struct node
 int delete_node(struct node* p_node,int number);
 
 //declaration for insert_note function
-int insert_node(struct node** pp_node,struct node* p_node_parent,int number);
+struct node *insert_node(struct node* p_node,
+                         struct node *p_parent,
+                         int number);
 
 //declaration for print_node function
 int print_node(struct node* p_node);

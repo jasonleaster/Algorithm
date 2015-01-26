@@ -10,7 +10,7 @@ which is coded by Python.
 
 ATTENTION: Binary search tree do not allow the inputed data 
 which have the same value! Make sure that every data you insert
-into the tree is just only one.
+into the tree is just only one but no more than two times.
 
         If there is something wrong with my code, please touch
 me by e-mail. Thank you!
@@ -155,6 +155,45 @@ class BST() :
              print "None"
           self.show(node.right)
 
+      def __str__(self):
+          if self.root is None :
+               return '<Empty tree>'
+
+          def recurse(node) :
+               if node is None:
+                   return [], 0, 0
+               else :
+                   left_lines, left_pos, left_width = recurse(node.left)
+                   right_lines, right_pos, right_width = recurse(node.right)
+
+		   label = str(node.number)
+
+		   middle = max(right_pos + left_width - left_pos + 1, len(label), 2)
+		   pos    = left_pos + middle//2
+		   width  = left_pos + middle + right_width - right_pos
+
+                   while len(left_lines) < len(right_lines) :
+                       left_lines.append(' ' * left_width)
+                   while len(right_lines) < len(left_lines) :
+                       right_lines.append(' ' * right_width)
+
+		   line   = [' ' * left_pos + label + ' ' * (right_width-right_pos),
+			     ' ' * left_pos + '/' + 
+                             ' ' * (middle-2) + '\\' +
+			     ' ' * (left_width)
+                            ] + \
+                            [left_line + ' ' * (width - left_width - right)width) + right_line for left_line, right_line in zip(left_lines, right_lines)
+                            ]
+
+		   if node is self.root :
+		       return line
+		   else :
+		       return line, pos, width
+
+          output = recurse(self.root)
+          for i in range(0, len(output)-2) :
+              print output[i]
+
 class new_node() :
 
       def __init__(self, num = -1) :
@@ -173,6 +212,8 @@ for i in range(0,len(A)-1) :
 print "original tree"
 my_bst.show(my_bst.root)
 print 
+
+print my_bst
 
 '''my_bst.delete(5)
 print "after deleting 5"

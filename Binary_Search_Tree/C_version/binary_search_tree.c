@@ -13,7 +13,6 @@ If there somthing wrong with my code, please touch me by e-mail.Thank you!
 
 #define ARRAYSIZE 10
 
-struct node* root = NULL;
 
 int main(int argc, char* argv[])
 {
@@ -21,21 +20,30 @@ int main(int argc, char* argv[])
 	int number = 0;
 	int array[ARRAYSIZE] = {23,32,4,56,33,98,24,88,45,78};
 	
+        struct node* root = NULL;
+
 	for(temp = 0;temp < ARRAYSIZE;temp++)
 	{
-		if(insert_node(&root,NULL,array[temp]) != 0)
+		if((root = insert_node(root, NULL, array[temp])) ==  NULL)
 		{
-			break;//memory allocation failed ,so break out of this loop
+			break;
+                        //memory allocation failed ,
+                        //so break out of this loop
 		}
 	}
 	
 	printf("before delete a node\n");
 	print_node(root);
 
-	printf("If you want to delete a numbe in these table, please enter the number\n");
+	printf("If you want to delete a numbe in these table,"
+                " please enter the number\n");
+
 	while(!scanf("%d",&number))
 	{
-		printf("scanf error!\nPlease enter again\n");
+                while(getchar() != '\n')
+                {
+   		    printf("scanf error!\nPlease enter again\n");
+                }
 	}
 
 	printf("I am goint to delete node which included data %d",number);

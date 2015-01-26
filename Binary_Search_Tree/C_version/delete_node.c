@@ -90,12 +90,12 @@ int delete_node(struct node* p_node,int number)
 	{
 		if((p_node)->data < number)
 		{
-			delete_node((((p_node)->rightchild)),number);	
+			delete_node(p_node->rightchild,number);	
 		}
 		
 		if((p_node)->data > number)
 		{
-			delete_node((((p_node)->leftchild)),number);
+			delete_node(p_node->leftchild,number);
 		}
 	}
 }
