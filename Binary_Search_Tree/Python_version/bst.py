@@ -64,59 +64,29 @@ class BST() :
 
 
       def delete(self, num) :
-          tmp_node = self.search(self.root, num)
+          z = self.search(self.root, num)
+          if z.left == None or z.right == None :
+              y = z
+          else :
+              y = self.tree_successor(z)
 
-          if tmp_node == None :
-              print "There isn't any node which's value is %d" % num
+          if y.left != None :
+              x = y.left
+          else :
+              x = y.right
 
-          if tmp_node.left == None and tmp_node.right == None :
-             if tmp_node.parent.number > tmp_node.number :
-                  tmp_node.parent.left  = None
-             elif tmp_node.parent.number < tmp_node.number :
-                  tmp_node.parent.right = None
-             del tmp_node 
+          if x != None :
+              x.parent = y.parent
+          if y.parent == None :
+              self.root = x
+          elif y == y.parent.left :
+              y.parent.left = x
+          else :
+              y.parent.right = x
 
-          elif tmp_node.left == None and tmp_node.right != None :
-             if tmp_node.parent.number > tmp_node.number :
-                 tmp_node.parent.left  = tmp_node.right
-             elif tmp_node.parent.number < tmp_node.number :
-                 tmp_node.parent.right = tmp_node.right
-
-             tmp_node.right.parent = tmp_node.parent
-             del tmp_node 
-          
-          elif tmp_node.left != None and tmp_node.right == None :
-             if tmp_node.parent.number > tmp_node.number :
-                 tmp_node.parent.left  = tmp_node.left
-             elif tmp_node.parent.number < tmp_node.number :
-                 tmp_node.parent.right = tmp_node.left
-
-             tmp_node.left.parent = tmp_node.parent
-             del tmp_node 
-
-          elif tmp_node.left != None and tmp_node.right != None :
-              scsr = self.tree_successor(tmp_node) # @scsr is successor of node @tmp_node
-
-              if scsr != None and scsr.right != None :
-                 scsr.parent.left = scsr.right
-                 scsr.right.parent = scsr.parent
-
-              if tmp_node.parent != None :
-                  if tmp_node.parent.right == tmp_node :
-                      tmp_node.parent.right = scsr
-                  elif tmp_node.parent.left  == tmp_node :
-                      tmp_node.parent.left  = scsr
-              else : # the node we are trying to delete is root
-                  scsr.left = tmp_node.left
-                  scsr.parent = tmp_node.parent
-                  del tmp_node
-                  return 
-
-              scsr.parent = tmp_node.parent
-              scsr.right  = tmp_node.right
-              scsr.left   = tmp_node.left
-              del tmp_node 
-
+          if y != z :
+              # copy y's satelllite data into z
+              z.number = y.number
 
       def tree_mininum(self, x) :
           while x.left != None :
@@ -139,6 +109,15 @@ class BST() :
               y = y.parent
           return y    
 
+      def tree_predecessor(self, x) :
+          if x.left != None :
+              return self.tree_maxinum(x.left)
+
+          y = x.parent
+          while y != None and x == y.left :
+              x = y.left
+              y = y.parent
+
       def show(self, node) :
           if node == None :
               return None
@@ -156,8 +135,6 @@ class BST() :
           self.show(node.right)
 
       def __str__(self):
-          if self.root is None :
-               return '<Empty tree>'
 
           def recurse(node) :
                if node is None:
@@ -168,7 +145,7 @@ class BST() :
 
 		   label = str(node.number)
 
-		   middle = max(right_pos + left_width - left_pos + 1, len(label), 2)
+		   middle = max(right_pos + left_width - left_pos +1, len(label), 2)
 		   pos    = left_pos + middle//2
 		   width  = left_pos + middle + right_width - right_pos
 
@@ -177,12 +154,17 @@ class BST() :
                    while len(right_lines) < len(left_lines) :
                        right_lines.append(' ' * right_width)
 
-		   line   = [' ' * left_pos + label + ' ' * (right_width-right_pos),
+		   line   = [' ' * left_pos + label + ' ' * (right_width-right_pos + 1),
 			     ' ' * left_pos + '/' + 
                              ' ' * (middle-2) + '\\' +
-			     ' ' * (left_width)
+			     ' ' * (right_width - right_pos)
                             ] + \
-                            [left_line + ' ' * (width - left_width - right)width) + right_line for left_line, right_line in zip(left_lines, right_lines)
+                            [
+				    left_line + 
+				    ' ' * (width - left_width - right_width) +
+				    right_line 
+				    for left_line, right_line 
+				    in zip(left_lines, right_lines)
                             ]
 
 		   if node is self.root :
@@ -190,9 +172,14 @@ class BST() :
 		   else :
 		       return line, pos, width
 
+          if self.root is None :
+               return '<Empty tree>'
+
           output = recurse(self.root)
-          for i in range(0, len(output)-2) :
-              print output[i]
+          for i in range(1, len(output)-2) :
+              output[0] += '\n' + output[i]
+
+          return output[0]+'\n'
 
 class new_node() :
 
@@ -203,19 +190,22 @@ class new_node() :
           self.parent = None
 
 #--------------testing code----------------
-A = [5,4,6,3,2,1,7,8,9]
+A = [20,4,6,3,2,1,7,8,9,23,24,21,89,34]
 my_bst = BST()
 
 for i in range(0,len(A)-1) :
     my_bst.insert(A[i])
 
 print "original tree"
-my_bst.show(my_bst.root)
-print 
-
 print my_bst
 
-'''my_bst.delete(5)
-print "after deleting 5"
-my_bst.show(my_bst.root)'''
+my_bst.delete(1)
+
+print "after deleting 1"
+print my_bst
+
+my_bst.delete(20)
+
+print "after deleting 20"
+print my_bst
 

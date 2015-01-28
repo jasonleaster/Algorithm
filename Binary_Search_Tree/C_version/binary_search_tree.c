@@ -1,6 +1,7 @@
 /*******************************************************************************
 * code writer: EOF
 * Date : 2014.02.20
+* Update : 2015.01.26
 * code purpose:
 		This code is main function.
 *e-mail:jasonleaster@gmail.com

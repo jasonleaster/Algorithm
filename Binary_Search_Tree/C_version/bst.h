@@ -1,6 +1,7 @@
 /*******************************************************************************
 * code writer: EOF
 * Date : 2014.02.20
+* Update: 2015.01.26
 * code purpose:
 		This code is  for header file -- bst.h(Binary_Search_Tree)
 *e-mail:jasonleaster@gmail.com
