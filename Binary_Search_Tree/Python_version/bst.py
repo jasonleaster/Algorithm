@@ -143,34 +143,34 @@ class BST() :
                    left_lines, left_pos, left_width = recurse(node.left)
                    right_lines, right_pos, right_width = recurse(node.right)
 
-		   label = str(node.number)
+		       label = str(node.number)
 
-		   middle = max(right_pos + left_width - left_pos +1, len(label), 2)
-		   pos    = left_pos + middle//2
-		   width  = left_pos + middle + right_width - right_pos
+		       middle = max(right_pos + left_width - left_pos +1, len(label), 2)
+		       pos    = left_pos + middle//2
+		       width  = left_pos + middle + right_width - right_pos
 
-                   while len(left_lines) < len(right_lines) :
-                       left_lines.append(' ' * left_width)
-                   while len(right_lines) < len(left_lines) :
-                       right_lines.append(' ' * right_width)
+                       while len(left_lines) < len(right_lines) :
+                           left_lines.append(' ' * left_width)
+                       while len(right_lines) < len(left_lines) :
+                           right_lines.append(' ' * right_width)
 
-		   line   = [' ' * left_pos + label + ' ' * (right_width-right_pos + 1),
-			     ' ' * left_pos + '/' + 
-                             ' ' * (middle-2) + '\\' +
-			     ' ' * (right_width - right_pos)
-                            ] + \
-                            [
-				    left_line + 
-				    ' ' * (width - left_width - right_width) +
-				    right_line 
-				    for left_line, right_line 
-				    in zip(left_lines, right_lines)
-                            ]
+		       line   = [' ' * left_pos + label + ' ' * (right_width-right_pos + 1),
+		             ' ' * left_pos + '/' + 
+                                 ' ' * (middle-2) + '\\' +
+		             ' ' * (right_width - right_pos)
+                                ] + \
+                                [
+		        	    left_line + 
+		        	    ' ' * (width - left_width - right_width) +
+		        	    right_line 
+		        	    for left_line, right_line 
+		        	    in zip(left_lines, right_lines)
+                                ]
 
-		   if node is self.root :
-		       return line
-		   else :
-		       return line, pos, width
+		          if node is self.root :
+		              return line
+		          else :
+		              return line, pos, width
 
           if self.root is None :
                return '<Empty tree>'
