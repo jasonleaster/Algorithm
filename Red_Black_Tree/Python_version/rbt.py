@@ -66,14 +66,16 @@ class Red_Black_Tree() :
         else :
              x.parent.right = y
 
+        y.parent = x.parent
         y.left = x
         x.parent = y
 
     def right_rotate(self, x) :
         y = x.left
 
-        if y.right is self.nil :
+        if y.right is not self.nil :
             y.right.parent = x
+
         if x.parent is self.nil :
             self.root = y
         elif x is x.parent.left :
@@ -81,6 +83,7 @@ class Red_Black_Tree() :
         else :
              x.parent.right = y
 
+        y.parent = x.parent
         y.right = x
         x.parent = y
 
@@ -121,9 +124,9 @@ class Red_Black_Tree() :
             if z.parent is z.parent.parent.left :
                y = z.parent.parent.right # @y is the uncle of @z
                if y.color is 'red' :     # $case 1
-                   z.parent.color  = 'black'
-                   y.color         = 'black'
-                   z.parent.parent = 'red'
+                   z.parent.color        = 'black'
+                   y.color               = 'black'
+                   z.parent.parent.color = 'red'
                    z = z.parent.parent
                else : # here is the color of uncle-node @y is 'black'
                    if z is z.parent.right : # $case 2
@@ -137,7 +140,7 @@ class Red_Black_Tree() :
                  if y.color is 'red' :
                      z.parent.color  = 'black'
                      y.color         = 'black'
-                     z.parent.parent = 'red'
+                     z.parent.parent.color = 'red'
                      z = z.parent.parent
                  else :
                      if z is z.parent.left :
@@ -236,7 +239,7 @@ class Red_Black_Tree() :
                 left_lines, left_pos, left_width = recurse(node.left)
                 right_lines, right_pos, right_width = recurse(node.right)
 
-            label = str(node.number)
+            label = str(node.key) + ' ' + str(node.color)
             middle = max(right_pos + left_width - left_pos +1, len(label), 2)
             pos    = left_pos + middle//2
             width  = left_pos + middle + right_width - right_pos
@@ -246,7 +249,7 @@ class Red_Black_Tree() :
             while len(right_lines) < len(left_lines) : 
                 right_lines.append(' ' * right_width)
 
-            line   = [  ' ' * left_pos + label + 
+            line = [    ' ' * left_pos + label + 
                         ' ' * (right_width-right_pos + 1),
                         ' ' * left_pos + '/' + 
                         ' ' * (middle-2) + '\\' +
@@ -260,10 +263,10 @@ class Red_Black_Tree() :
                         in zip(left_lines, right_lines)
                         ]
 
-        if node is self.root :
-            return line
-        else :
-            return line, pos, width
+            if node is self.root :
+                return line
+            else :
+                return line, pos, width
 
         if self.root is None :
             return '<Empty tree>'
