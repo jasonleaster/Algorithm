@@ -10,12 +10,18 @@ code purpose	:
 	If there is something wrong with my code, 
 please touch me by e-mail. Thank you.
 
+#BUG-fix-up 2015.02.09
+          self.S[0] -= 1
+          return self.S[self.S[0]] 
+
+
 """
+
 
 class Stack() :
 
       S = []
-      def __init__(self, arg = [0]):
+      def __init__(self, arg = []):
           self.S = [len(arg)] + arg
 
       def stack_empty(self) :
@@ -25,23 +31,28 @@ class Stack() :
              return False
 
       def push(self,x) :
+
           self.S[0] += 1
-	  if len(self.S) > self.S[0] :
-	     self.S[self.S[0]] = x
-	  else :
-             self.S = self.S + [x]
-	  return self.S
+
+          if len(self.S) > self.S[0] :
+             self.S[self.S[0]] = x
+          else :
+                self.S = self.S + [x]
+
+          return self.S
 
       def pop(self) :
-	  if self.stack_empty() == True :
-	     print "underflow"
-	  else :
-	     self.S[0] -= 1
-	  return self.S[self.S[0]] 
+          if self.stack_empty() == True :
+             print "underflow"
+          else :
+                temp = self.S[0]
+                self.S[0] -= 1
+                return self.S[temp] 
 
       def show_stack(self) :
-	    print "stack status:",self.S[1 : self.S[0] + 1]
-        
+          print "stack status:",self.S[1 : self.S[0] + 1]
+
+
 #------------------------------------------
 
 input_num = [1,2,3,4,5]
