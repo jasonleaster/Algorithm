@@ -63,7 +63,7 @@ def max_heapify(A, i) :
 def build_max_heap(A) :
     hs = heap_size(A)
     for i in range(hs/2,0,-1) :
-      A = max_heapify(A,i)
+        A = max_heapify(A,i)
 
     return A
 
@@ -87,6 +87,7 @@ def show_heap(A) :
     print ""
 
 def heap_sort(A) :
+
     for i in range(len(A)-1,0,-1) :
         tmp  = A[1]
         A[1] = A[i]
