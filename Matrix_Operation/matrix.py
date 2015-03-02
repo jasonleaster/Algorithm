@@ -5,13 +5,15 @@ Code file   :   matrix.py
 
 Code description :
 
-    @transpose          : return a matrix @A_T which is tranposed matrix of @A
+    @transpose : return a matrix @A_T which is tranposed matrix of @A
 
-    @lu_decomposition   : return matrix @L and @U which are decomposed from matrix @A
+    @lu_decomposition : return matrix @L and @U which are decomposed from matrix @A
 
     @plu_decomposition  : return matrix @P, @L and @U which are decomposed from matrix @A
 
 """
+import copy
+
 class mat() :
 
     def transpose(self, A) :
@@ -25,6 +27,31 @@ class mat() :
                 A_T[j][i] = A[i][j]
 
         return A_T
+
+    def multiply(self, A, B) :
+        if A is None or B is None :
+            return
+
+        if len(A[0]) is not len(B) :
+            print "The size of the two inputed matrix is illegally ",\
+                    "to do multiplication in matrix"
+            return
+
+        row_A = len(A)
+        col_A = len(A[0])
+        col_B = len(B[0])
+
+        output = [[0 for i in range(0, col_B)] for j in range(0, row_A)]
+
+        for i in range(0, row_A) :
+            for j in range(0, col_B) :
+                sum_val = 0
+                for k in range(0, col_A) :
+                    sum_val += A[i][k] * B[k][j]
+
+                output[i][j] = sum_val
+
+        return output
 
 
     def lup_solve(self, L, U, pi, b) :
@@ -118,6 +145,102 @@ class mat() :
         return (self.P, self.L, self.U)
 
 
+    def determinant(self, matrix) :
+        row = len(matrix)
+        col = len(matrix[0])
+
+        if row == 1 :
+            return matrix
+        elif row == 2 :
+            return matrix[0][0]*matrix[1][1] - matrix[1][0] * matrix[0][1]
+
+        ret_val = 0
+        for i in range(0, col) :
+            tmp_mat = [[0 for x in range(0, col-1)] for y in range(0, row-1)]
+
+            for m in range(0, row-1) :
+                n = 0
+                while n < col-1 :
+                    if n < i :
+                        tmp_mat[m][n] = matrix[m+1][n]
+                    else :
+                        tmp_mat[m][n] = matrix[m+1][n+1] 
+                    n += 1
+
+            ret_val += ((-1)**(i)) * matrix[0][i] * \
+                       self.determinant(tmp_mat)
+
+        return ret_val
+
+
+    def inverse(self, mat) :
+        if mat is None :
+            return
+
+        # make sure that this matrix that you inputed is invertible
+        if  self.determinant(mat) == 0 :
+            print "ATTENTION! The determinant of matrix is ZERO"
+            print "This matrix is uninvertible"
+            return
+
+        row = len(mat)
+        col = len(mat[0])
+
+        #matrix = copy.copy(mat)
+        matrix = copy.deepcopy(mat)
+#        matrix = [[0 for i in range(0, col)] for j in range(0, row)]
+#        for i in range(0, row) :
+#            for j in range(0, col) :
+#                matrix[i][j] = mat[i][j]
+
+        for i in range(0, row) :
+            for j in range(0, col) :
+                if i == j :
+                    matrix[i] += [1]
+                else :
+                    matrix[i] += [0]
+
+        row = len(matrix)
+        col = len(matrix[0])
+
+        for i in range(0, row) :
+            if matrix[i][i] is 0 :
+                for k in range(i+1, row) :
+                    if matrix[k][i] is not 0 :
+                        break
+
+                if k is not i+1 :
+                    for j in range(0, col) :
+                        matrix[i][j], matrix[k][j] = matrix[k][j], matrix[i][j]
+
+            for k in range(i+1, row) :
+                if matrix[k][i] is not 0 :
+                    times = (1.0*matrix[k][i])/matrix[i][i]
+                    for j in range(i, col) :
+                        matrix[k][j] /= times
+                        matrix[k][j] -= matrix[i][j]
+
+        for i in range(0, row) :
+            for j in range(i+1, col/2) :
+                if matrix[i][j] is not 0 :
+                    times = matrix[i][j]/matrix[j][j]
+                    for k in range(j, col) :
+                        matrix[i][k] -= times * matrix[j][k]
+
+
+        for i in range(0, row) :
+            times = matrix[i][i]
+            for j in range(0, col) :
+                matrix[i][j] /= times
+
+        output = [[0 for i in range(0, col/2)] for j in range(0, row)]
+        for i in range(0, row) :
+            for j in range(0, col/2) :
+                output[i][j] = matrix[i][j+col/2]
+
+        return output
+
+
     def show(self, matrix) :
 
         if matrix is None :
@@ -141,6 +264,17 @@ matrix = [[2,0,2,0.6], [3,3,4,-2], [5,5,4,2], [-1,-2,3.4,-1]]
 
 m = mat()
 
+
+print "The determinant of matrix @mat_1 :"
+mat_1 = [[1, 0, 0], [0, 2, 0], [0, 0, 3]]
+m.show(mat_1)
+print m.determinant(mat_1)
+
+print "The determinant of matrix @mat_2 :"
+mat_2 = [[1, 5, 0], [2, 4, -1], [0, -2, 0]]
+m.show(mat_2)
+print m.determinant(mat_2)
+
 print "The input matrix is \n"
 m.show(matrix)
 
@@ -159,3 +293,9 @@ m.show(L)
 
 print "U:"
 m.show(U)
+
+inv_mat = m.inverse(matrix)
+print "The inverse matrix of the inputed matrix is "
+m.show(inv_mat)
+print "Output"
+m.show(m.multiply(inv_mat, matrix))
