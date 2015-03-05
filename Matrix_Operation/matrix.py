@@ -13,6 +13,7 @@ Code description :
 
 """
 import copy
+import numpy
 
 class mat() :
 
@@ -70,6 +71,10 @@ class mat() :
             sum_val += A[i]*B[i]
 
         return sum_val
+
+    def magnitude(self, A) :
+        ret_val = self.dot_product(A, A)
+        return numpy.sqrt(ret_val)
 
     def gram_schimidt(self, A) :
 
@@ -129,10 +134,25 @@ class mat() :
         return output
 
 
-        
+    def qr_decomposition(self, A) :
+        if A is None :
+            return
 
-#    def qr_decomposition(self, A) :
-        
+        orthogonal_mat = self.transpose(self.gram_schimidt(A))
+
+        row = len(orthogonal_mat)
+        col = len(orthogonal_mat[0])
+
+        Q = [[0 for i in range(0, col)] for j in range(0, row)]
+        for i in range(0, row) :
+            mag = self.magnitude(orthogonal_mat[i])
+            for j in range(0, col) :
+                Q[i][j] = orthogonal_mat[i][j]/mag
+
+        R = self.multiply(Q, A)
+        Q = self.transpose(Q)
+
+        return (Q, R)
 
 
     def lup_solve(self, L, U, pi, b) :
@@ -153,7 +173,6 @@ class mat() :
             x[i] = (y[i] - tmp)/u[i][i]
 
         return x
-
     
 
     def lu_decomposition(self, A) :
@@ -345,7 +364,6 @@ matrix = [[2,0,2,0.6], [3,3,4,-2], [5,5,4,2], [-1,-2,3.4,-1]]
 
 m = mat()
 
-
 print "The determinant of matrix @mat_1 :"
 mat_1 = [[1, 0, 0], [0, 2, 0], [0, 0, 3]]
 m.show(mat_1)
@@ -390,5 +408,12 @@ m.show(m.adjugate(mat_1))
 mat_1 = [[1,0,0],[1,1,0],[1,1,1],[1,1,1]]
 print "The inputed matrix"
 m.show(mat_1)
-print "The adjugate matrix of the inputed matrix is "
+print "The gram chimidt matrix of the inputed matrix is "
 m.show(m.gram_schimidt(mat_1))
+
+print "The inputed matrix"
+m.show(mat_1)
+print "The adjugate matrix of the inputed matrix is "
+(Q, R) = m.qr_decomposition(mat_1)
+m.show(Q)
+m.show(R)
