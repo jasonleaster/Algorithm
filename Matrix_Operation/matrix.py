@@ -53,6 +53,87 @@ class mat() :
 
         return output
 
+    def dot_product(self, A, B) :
+        if A is None or B is None :
+            return
+
+        len_A = len(A)
+        len_B = len(B)
+
+        if len_A != len_B :
+            print "It's Illegal to do dot product with the two matrixes",
+            "which have different size"
+            return
+
+        sum_val = 0
+        for i in range(0, len_A) :
+            sum_val += A[i]*B[i]
+
+        return sum_val
+
+    def gram_schimidt(self, A) :
+
+        if A is None :
+            return
+        
+        A_T = self.transpose(A)
+
+        row = len(A_T)
+        col = len(A_T[0])
+
+        V = [[0 for i in range(0, col)] for j in range(0, row)]
+        for i in range(0, row) :
+            tmp_mat = [0 for x in range(0, col)]
+
+            for j in range(0, col) :
+                tmp = A_T[i][j]
+                for k in range(0, i) :
+                    factor = (1.0*self.dot_product(A_T[i], V[k])) / \
+                             self.dot_product(V[k], V[k])
+                    tmp -= factor*V[k][j]
+
+                V[i][j] = tmp
+
+        V = self.transpose(V)
+
+        return V
+
+
+    def adjugate(self, A) :
+        row = len(A)
+        col = len(A[0])
+
+        output = [[0 for x in range(0, col)] for y in range(0, row)]
+        for i in range(0, row) :
+            for j in range(0, col) :
+                tmp_mat = [[0 for x in range(0, col-1)] for y in range(0, row-1)]
+
+                for m in range(0, row) :
+                    for n in range(0, col) :
+                        if m < i and n < j :
+                            tmp_mat[m][n] = A[m][n]
+                        elif m > i and n < j :
+                            tmp_mat[m-1][n] = A[m][n]
+                        elif m < i and n > j :
+                            tmp_mat[m][n-1] = A[m][n]
+                        elif m > i and n > j :
+                            tmp_mat[m-1][n-1] = A[m][n]
+
+                det_val = self.determinant(tmp_mat)
+                det_val *= (-1)**(i+j)
+                
+                output[i][j] = det_val
+
+        output = self.transpose(output)
+
+        return output
+
+
+        
+
+#    def qr_decomposition(self, A) :
+        
+
 
     def lup_solve(self, L, U, pi, b) :
         n = len(self.L)
@@ -299,3 +380,15 @@ print "The inverse matrix of the inputed matrix is "
 m.show(inv_mat)
 print "Output"
 m.show(m.multiply(inv_mat, matrix))
+
+mat_1 = [[1,2,3],[4,5,6],[7,8,9]]
+print "The inputed matrix"
+m.show(mat_1)
+print "The adjugate matrix of the inputed matrix is "
+m.show(m.adjugate(mat_1))
+
+mat_1 = [[1,0,0],[1,1,0],[1,1,1],[1,1,1]]
+print "The inputed matrix"
+m.show(mat_1)
+print "The adjugate matrix of the inputed matrix is "
+m.show(m.gram_schimidt(mat_1))
