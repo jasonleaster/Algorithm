@@ -29,6 +29,48 @@ class mat() :
 
         return A_T
 
+    def add(self, A, B) :
+        if A is None or B is None :
+            return
+
+        row_A = len(A)
+        col_A = len(A[0])
+        row_B = len(B)
+        col_B = len(B[0])
+
+        if row_A != row_B or col_A != col_B :
+            print "Are you kidding me? The matrixes that you inputed ",\
+            "have different size. It's illegal to add these matries together"
+            return
+
+        output = [[0 for i in range(0, col_A)] for j in range(0, row_A)]
+        for i in range(0, row_A) :
+            for j in range(0, col_A) :
+                output[i][j] = A[i][j] + B[i][j]
+
+        return output
+
+    def sub(self, A, B) :
+        if A is None or B is None :
+            return
+
+        row_A = len(A)
+        col_A = len(A[0])
+        row_B = len(B)
+        col_B = len(B[0])
+
+        if row_A != row_B or col_A != col_B :
+            print "Are you kidding me? The matrixes that you inputed ",\
+            "have different size. It's illegal to sub these matries together"
+            return
+
+        output = [[0 for i in range(0, col_A)] for j in range(0, row_A)]
+        for i in range(0, row_A) :
+            for j in range(0, col_A) :
+                output[i][j] = A[i][j] - B[i][j]
+
+        return output
+
     def multiply(self, A, B) :
         if A is None or B is None :
             return
@@ -341,6 +383,32 @@ class mat() :
         return output
 
 
+    def eig(self, A) :
+        if A is None :
+            return
+
+        tmp_mat = copy.deepcopy(A)
+
+        if self.determinant(A) is 0 :
+            print "The determinant of inputed matrix is #ZERO#", \
+                "The QR-algorithm can not find eigen value and eig vector"
+            return
+
+        for i in range(0, 20) :
+            (Q, R) = self.qr_decomposition(tmp_mat)
+            tmp_mat = self.multiply(R, Q)
+
+        row = len(tmp_mat)
+        col = len(tmp_mat[0])
+        for i in range(0, row) :
+            for j in range(0, col) :
+                if i != j :
+                    tmp_mat[i][j] = 0
+
+        eig_vec = self.inverse(self.sub(A, tmp_mat))
+        return (tmp_mat, eig_vec)
+
+
     def show(self, matrix) :
 
         if matrix is None :
@@ -417,3 +485,13 @@ print "The adjugate matrix of the inputed matrix is "
 (Q, R) = m.qr_decomposition(mat_1)
 m.show(Q)
 m.show(R)
+
+#mat_1 = [[2, 3], [3, -6]]
+#mat_1 = [[2, 1], [1, 2]]
+mat_1 = [[9, -9], [-9, 9]]
+print "The inputed matrix"
+m.show(mat_1)
+print "The eig value matrix of the inputed matrix is "
+(eig_val, eig_vector) = m.eig(mat_1)
+m.show(eig_val)
+m.show(eig_vector)
