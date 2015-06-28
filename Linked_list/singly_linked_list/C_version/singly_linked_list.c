@@ -9,6 +9,11 @@ Code description:
 
     If there is something wrong with my code please touch me
 by e-mail, thank you.
+
+Update: 2015.06.28
+    I find a bug in function @release_list() which will
+cause memory leak. 
+
 **********************************************************/
 #include <stdio.h>
 #include <stdlib.h>
@@ -125,8 +130,7 @@ void release_list(struct node* p_head)
     struct node *p_tmp  = NULL;
 
     for(p_node = p_head ;
-        p_node->next != NULL; 
-        p_node = p_node->next)
+        p_node->next != NULL;)
     {
         p_tmp = p_node->next;
         p_node->next = p_tmp->next;

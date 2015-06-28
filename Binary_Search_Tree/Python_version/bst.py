@@ -27,7 +27,7 @@ class BST() :
             self.root = new_node(num)
         else :
             tmp_node = self.root
-            par_node = None
+            par_node = None # parent of the inserting node
 
             #Just for searching the location where could be inserted
             while tmp_node != None :
@@ -182,6 +182,22 @@ class BST() :
 
         return output[0]+'\n'
 
+    def invertTree(self, node):
+        if node is None:
+            return
+
+        right_child = node.right;
+        left_child  = node.left;
+
+        right_child = self.invertTree(right_child)
+        left_child = self.invertTree(left_child)
+
+        node.right = left_child
+        node.left  = right_child
+
+        return node
+
+
 class new_node() :
 
       def __init__(self, num = -1) :
@@ -190,8 +206,11 @@ class new_node() :
           self.left   = None
           self.parent = None
 
+
+
 #--------------testing code----------------
 A = [20,4,6,3,2,1,7,8,9,23,24,21,89,34]
+#A = [4,2,7,1,3,6,9]
 my_bst = BST()
 
 for i in range(0,len(A)-1) :
@@ -200,6 +219,7 @@ for i in range(0,len(A)-1) :
 print "original tree"
 print my_bst
 
+"""
 my_bst.delete(1)
 
 print "after deleting 1"
@@ -209,4 +229,8 @@ my_bst.delete(20)
 
 print "after deleting 20"
 print my_bst
+"""
 
+print "show the invertTree"
+my_bst.invertTree(my_bst.root)
+print my_bst
