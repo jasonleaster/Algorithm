@@ -18,5 +18,16 @@ int main()
 
 	printf("location:%d number[%d]:%d\n",ret,ret,number[ret]);
 
+    what_i_want = 1;
+	ret = binary_search(number,sizeof(number)/sizeof(number[0]),what_i_want);
+
+	if(ret < 0)
+	{
+		printf("Not found!\n");
+		return 0;
+	}
+
+	printf("location:%d number[%d]:%d\n",ret,ret,number[ret]);
+
 	return 0;
 }
