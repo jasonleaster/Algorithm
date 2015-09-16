@@ -23,7 +23,7 @@ struct node* avl_insert_node(struct node** pp_node,
 		if((*pp_node) == NULL)
 		{
 			printf("malloc faild!\n");
-			return 0;
+            exit(-1);
 		}
 
 		//initilization for new node
@@ -34,13 +34,17 @@ struct node* avl_insert_node(struct node** pp_node,
 		(*pp_node)->leftchild  = NULL;
 		
 	}
-	else if((*pp_node)->data > number)//right_rotation
+	else if((*pp_node)->data > number)// Insert into the left sub-tree
 	{
 		(*pp_node)->leftchild = avl_insert_node(&((*pp_node)->leftchild),(*pp_node),number);
-		//Now, we have inserted a node and interrupt the balance of the tree. So, we should rebalance the tree.What we should do is rotation.
+		/*
+           Now, we have inserted a node and interrupt the balance of the tree. 
+            So, we should rebalance the tree.What we should do is rotation.
+        */
 		
 		(*pp_node)->height = (avl_height((*pp_node)->leftchild) > avl_height((*pp_node)->rightchild) ?\
-				      avl_height((*pp_node)->leftchild) : avl_height((*pp_node)->rightchild))+1;
+				              avl_height((*pp_node)->leftchild) : avl_height((*pp_node)->rightchild));
+        ((*pp_node)->height)++;
 		
 		if(abs(avl_height((*pp_node)->rightchild) - avl_height((*pp_node)->leftchild))  == 2)
 		{
@@ -54,13 +58,14 @@ struct node* avl_insert_node(struct node** pp_node,
 			}
 		}
 	}
-	else if((*pp_node)->data < number)//left_rotation
+	else if((*pp_node)->data < number)// Insert into the right sub-tree
 	{
 		
 		(*pp_node)->rightchild = avl_insert_node(&((*pp_node)->rightchild),(*pp_node),number);
 		
 		(*pp_node)->height = (avl_height((*pp_node)->leftchild) > avl_height((*pp_node)->rightchild) ?\
-				      avl_height((*pp_node)->leftchild) : avl_height((*pp_node)->rightchild))+1;
+			        	      avl_height((*pp_node)->leftchild) : avl_height((*pp_node)->rightchild));
+        ((*pp_node)->height)++;
 	
 		if(abs(avl_height((*pp_node)->rightchild) - avl_height((*pp_node)->leftchild))  == 2)
 		{

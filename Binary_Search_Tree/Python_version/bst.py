@@ -197,6 +197,53 @@ class BST() :
 
         return node
 
+    """
+        There are four different types of iterate function
+    of Binary Search Tree. @pre_traveller, @mid_traveller,
+    @suf_traveller, @wid_traveller
+    """
+    def pre_traveller(self, node):
+        if node == None :
+            return None
+        print node.number
+        self.pre_traveller(node.left)
+        self.pre_traveller(node.right)
+
+    def mid_traveller(self, node):
+        if node == None:
+            return None
+        self.mid_traveller(node.left)
+        print node.number
+        self.mid_traveller(node.right)
+
+    def suf_traveller(self, node):
+        if node == None:
+            return None
+
+        self.suf_traveller(node.left)
+        self.suf_traveller(node.right)
+        print node.number
+
+    def wid_traveller(self, node):
+        if node == None:
+            return None
+
+        l = [node]
+        length_of_list = len(l)
+        while length_of_list != 0:
+            for i in range(0, length_of_list):
+                print l[i].number
+                if l[i].left != None:
+                    l.append(l[i].left)
+                if l[i].right != None:
+                    l.append(l[i].right)
+
+            for i in range(0, length_of_list):
+                # ATTENTION!! HERE not l[i] but l[0]
+                l.remove(l[0])
+
+            length_of_list = len(l)
+
 
 class new_node() :
 
@@ -209,11 +256,12 @@ class new_node() :
 
 
 #--------------testing code----------------
-A = [20,4,6,3,2,1,7,8,9,23,24,21,89,34]
+#A = [20,4,6,3,2,1,7,8,9,23,24,21,89,34]
 #A = [4,2,7,1,3,6,9]
+A = [10, 6, 14, 4, 8, 12, 16]
 my_bst = BST()
 
-for i in range(0,len(A)-1) :
+for i in range(0,len(A)) :
     my_bst.insert(A[i])
 
 print "original tree"
@@ -230,7 +278,19 @@ my_bst.delete(20)
 print "after deleting 20"
 print my_bst
 """
-
+"""
 print "show the invertTree"
 my_bst.invertTree(my_bst.root)
 print my_bst
+"""
+"""
+#my_bst.show(my_bst.root)
+print "pre_traveller"
+my_bst.pre_traveller(my_bst.root)
+print "mid_traveller"
+my_bst.mid_traveller(my_bst.root)
+print "suf_traveller"
+my_bst.suf_traveller(my_bst.root)
+"""
+
+my_bst.wid_traveller(my_bst.root)

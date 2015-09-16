@@ -10,7 +10,7 @@ If there somthing wrong with my code, please touch me by e-mail.Thank you!
 #include "avl_tree.h"
 #include "stdio.h"
 
-int print_tree(struct node* p_node)// use recursion to print out the data in the binary tree
+void print_tree(struct node* p_node)// use recursion to print out the data in the binary tree
 {
 	// print the left side of the binary tree
 	if((p_node->leftchild) != NULL)
