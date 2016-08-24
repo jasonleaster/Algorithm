@@ -12,7 +12,7 @@ this table is sizeof(int).
 
 ************************************************************/
 
-#include "dijstra.h"
+#include "dijkstra.h"
 
 struct table* init_table(int row,int col)
 {

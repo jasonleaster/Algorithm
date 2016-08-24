@@ -9,7 +9,7 @@ code description:
 with inputed parameter @vertex and @edge.
 
 ************************************************************/
-#include "dijstra.h"
+#include "dijkstra.h"
 
 struct graph* init_graph(int num_vertex,int num_edge)
 {
@@ -21,7 +21,7 @@ struct graph* init_graph(int num_vertex,int num_edge)
 
 	struct graph* p_graph = NULL;
 
-        p_graph = (struct graph*)malloc(sizeof(struct graph) +\
+    p_graph = (struct graph*)malloc(sizeof(struct graph) +\
 		  num_vertex*sizeof(struct vertex));
 
 	if(!p_graph)

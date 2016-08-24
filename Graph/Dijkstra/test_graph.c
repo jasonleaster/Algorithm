@@ -37,7 +37,7 @@ int main()
 	p_graph = init_graph(vertex,edge);
 
 	int temp = 0;
-	for(temp;temp < edge;temp++)
+	for(temp = 0;temp < edge;temp++)
 	{
 		/*
 		**	I think it's necessary to check the returned value
